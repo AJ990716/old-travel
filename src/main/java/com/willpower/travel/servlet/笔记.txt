@@ -1,0 +1,40 @@
+windows:
+项目路径(RequestURI):/uploadImg/travelRoute
+项目路径(ServletPath):/uploadImg/travelRoute
+项目路径(ContextPath):
+classpath路径(thread/Resource):file:/E:/IntelliJ%20IDEA/IntelliJ%20IDEA4/SpringBoot/oldtravle/target/oldtravle-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/
+项目路径(getResource):jar:file:/E:/IntelliJ%20IDEA/IntelliJ%20IDEA4/SpringBoot/oldtravle/target/oldtravle-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/com/willpower/travel/servlet/
+项目路径(ServletContext):C:\Users\Administrator\AppData\Local\Temp\tomcat-docbase.4358704997142221840.8080\
+项目路径(classpath):file:/E:/IntelliJ%20IDEA/IntelliJ%20IDEA4/SpringBoot/oldtravle/target/oldtravle-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/
+现目前的上传的地址：file:/E:/IntelliJ IDEA/IntelliJ IDEA4/SpringBoot/oldtravle/target/oldtravle-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/static/travelRoute/1621391926279.jpg
+java.io.IOException: java.io.FileNotFoundException: C:\Users\Administrator\AppData\Local\Temp\tomcat.6227235204215784550.8080\work\Tomcat\localhost\ROOT\ile:\E:\IntelliJ IDEA\IntelliJ IDEA4\SpringBoot\oldtravle\target\oldtravle-0.0.1-SNAPSHOT.jar!\BOOT-INF\classes!\static\travelRoute\1621391926279.jpg (文件名、目录名或卷标语法不正确。)
+
+
+linux:
+项目路径(RequestURI):/uploadImg/travelRoute
+项目路径(ServletPath):/uploadImg/travelRoute
+项目路径(ContextPath):
+classpath路径(thread/Resource):file:/usr/local/tomcat/webapps/oldtravle-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/
+项目路径(getResource):jar:file:/usr/local/tomcat/webapps/oldtravle-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/com/willpower/travel/servlet/
+项目路径(ServletContext):/tmp/tomcat-docbase.1558066999472875727.8080/
+项目路径(classpath):file:/usr/local/tomcat/webapps/oldtravle-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/
+现目前的上传的地址：file:/usr/local/tomcat/webapps/oldtravle-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/static/travelRoute/1621392307375.jpg
+java.io.IOException: java.io.FileNotFoundException: /tmp/tomcat.8348356548488594761.8080/work/Tomcat/localhost/ROOT/ile:/usr/local/tomcat/webapps/oldtravle-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/static/travelRoute/1621392307375.jpg (No such file or directory)
+
+新问题：找不到
+E:\IntelliJ IDEA\IntelliJ IDEA4\SpringBoot\oldtravle\target\oldtravle-0.0.1-SNAPSHOT.jar!\BOOT-INF\classes!\static\travelRoute\1621392760036.jpg
+解决方式：
+原来是本地运行时，是能到本地磁盘里找到该资源的。
+但是打成jar到线上该文件是存在于jar包文件资源里，而不是真实存在于磁盘路径上。
+
+现在修改为如下或取流，需要文件的话用相应api转为文件
+ 通过getResourceAsStream（）指定要加载的文件与当前类所在路径是一致的，从而获取到文件流
+ InputStream stream = getClass().getClassLoader().getResourceAsStream("cert/apiclient_cert.p12");//【特别注意的是："cert/apiclient_cert.p12"中cert前不能有"/"】
+ 获取临时文件
+ File file = new File("apiclient_cert.p12");
+ try {
+     //将读取到的类容存储到临时文件中，后面就可以用这个临时文件访问了
+ 　　FileUtils.copyInputStreamToFile(stream,file);
+ } catch (IOException e) {
+    e.printStackTrace();
+ }

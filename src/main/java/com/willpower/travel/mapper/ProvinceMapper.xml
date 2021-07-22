@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.willpower.travel.mapper.ProvinceMapper">
+
+    <select id="findAllData" resultType="com.willpower.travel.pojo.MainProvince">
+        SELECT count(a.id) 'value',b.PROVINCE 'name' FROM t_pz_user a right JOIN t_pz_province b ON a.PROVINCE = b.id GROUP BY b.PROVINCE;
+    </select>
+</mapper>
